@@ -1,0 +1,3 @@
+﻿1.execTemplate.tt 执行文件
+1.execTemplate.tt 有配置参数
+2.Manager.ttinclude 方法：GetCLRType，自定义返回类型
