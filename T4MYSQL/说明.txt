@@ -1,3 +1,6 @@
 ﻿1.execTemplate.tt 执行文件
 1.execTemplate.tt 有配置参数
 2.Manager.ttinclude 方法：GetCLRType，自定义返回类型
+
+update 2019-08-21
+支持varchar(36)，char(36)配置生成GUID
