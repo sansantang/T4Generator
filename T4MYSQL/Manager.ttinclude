@@ -25,6 +25,7 @@
                                                     ,`information_schema`.`COLUMNS`.`COLUMN_NAME`
                                                     ,`information_schema`.`COLUMNS`.`DATA_TYPE`
                                                     ,`information_schema`.`COLUMNS`.`COLUMN_COMMENT`
+                                                    ,`information_schema`.`COLUMNS`.`COLUMN_KEY`
                                                     ,`information_schema`.`COLUMNS`.`CHARACTER_MAXIMUM_LENGTH`
                                                 FROM `information_schema`.`COLUMNS`
                                                 WHERE `information_schema`.`COLUMNS`.`TABLE_SCHEMA` IN ('{0}') ", dbs);
@@ -37,6 +38,7 @@
                         var column = reader["COLUMN_NAME"].ToString();
                         var type =  reader["DATA_TYPE"].ToString();
                         var comment = reader["COLUMN_COMMENT"].ToString();
+                        var key = reader["COLUMN_KEY"].ToString();
                         var maxlength = reader["CHARACTER_MAXIMUM_LENGTH"].ToString();
                         var entity = list.FirstOrDefault(x => x.EntityName == table);
                         if(entity == null)
@@ -47,6 +49,7 @@
                                 Name = column,
                                 Type = GetCLRType(type,maxlength,IsGuid),
                                 Comment = comment,
+                                KEY = key
                             });
                             
                             list.Add(entity);
@@ -57,7 +60,8 @@
                             {
                                 Name = column,
                                 Type = GetCLRType(type,maxlength,IsGuid),
-                                Comment = comment
+                                Comment = comment,
+                                KEY = key
                             });
                         }
                     }
@@ -76,6 +80,7 @@
             switch(dbType)
             {
                 case "tinyint":
+                    return "byte";
                 case "bigint":
                     return "long";
                 case "smallint":
@@ -166,6 +171,7 @@
         public string Type { get;set; }
         public string Comment { get;set; }
         public string MaxLength { get;set; }
+        public string KEY { get;set; }
         
     }
 #>
